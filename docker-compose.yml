@@ -1,0 +1,37 @@
+version: "3.9"
+services:
+  api_1:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .env:/usr/src/app/.env
+  api_2:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - "3001:3001"
+    environment:
+      - API_PORT=3001
+    volumes:
+      - .env:/usr/src/app/.env
+  api_3:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - "3002:3002"
+    environment:
+      - API_PORT=3002
+    volumes:
+      - .env:/usr/src/app/.env
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    volumes:
+      - .data/redis:/var/lib/redis
+    ports:
+      - "6379:6379"
